@@ -1,0 +1,219 @@
+:root {
+  --section-max-width: 1280px;
+  --section-padding: 28px;
+  --accent: #4B0082;
+  --card-radius: 10px;
+  --card-shadow: 0 6px 14px rgba(16,24,40,0.06);
+}
+
+.intro {
+  width: 100%;
+  background: #f4f4f4;
+  padding: 36px 0 32px;
+}
+
+.container {
+  max-width: var(--section-max-width);
+  margin: 0 auto;
+  padding: 0 var(--section-padding);
+}
+
+.heading {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  margin: 18px 0 24px;
+  color: #000;
+  text-align: left;
+}
+
+.logoSmall {
+  font-family: 'Fleur De Leah', cursive;
+  margin-left: 8px;
+  font-size: 55px;
+  vertical-align: middle;
+  color: var(--accent);
+}
+
+.grid {
+  display: grid;
+  /* Left column (statement), middle flexible content, right image */
+  grid-template-columns: 420px minmax(420px, 1fr) 360px;
+  gap: 28px;
+  align-items: start;
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardLarge {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  padding: 22px 24px;
+  margin-bottom: 18px;
+  min-height: 120px;
+}
+
+.cardLarge .lead {
+  color: #000; /* Ensure unhighlighted text in the left statement card is black */
+}
+
+.lead {
+  font-size: 20px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.accent {
+  color: var(--accent);
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.tile {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: var(--card-shadow);
+  padding: 16px;
+  text-align: left;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  cursor: pointer;
+}
+
+.tile:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(16,24,40,0.12);
+}
+
+.tileIcon {
+  font-size: 18px;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.tileTitle {
+  margin: 0 0 6px;
+  font-size: 15px;
+  color: var(--accent);
+}
+
+.tileSubtitle {
+  margin: 0;
+  font-size: 13px;
+  color: #333;
+}
+
+/* middle column placeholder removed (styles are in .cardTall) */
+
+.middleColumn {
+  /* span middle + right to make the merged card a single wide card */
+  grid-column: 2 / 4;
+}
+
+.cardTall {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  padding: 0; /* spacing inside handled by children */
+  height: 100%;
+  display: flex;
+  gap: 0;
+  overflow: hidden;
+}
+
+.cardText {
+  padding: 22px 20px;
+  flex: 1 1 420px;
+  display: flex;
+  align-items: center;
+}
+
+.cardText p {
+  margin: 0;
+  color: #000; /* unhighlighted text should be black */
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.cardImage {
+  /* allow the image column to shrink on narrower screens while keeping a max size */
+  width: 360px;
+  max-width: 100%;
+  flex: 0 1 360px; /* allow shrinking */
+  background: #fff;
+  height: 320px; /* base height on desktop */
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.cardImage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* right column placeholder removed (styles are in .imageCard) */
+
+.imageCard {
+  /* kept for backward-compatibility if used elsewhere */
+  background: #fff;
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  height: 100%;
+}
+
+.imageCard img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.quote {
+  text-align: center;
+  margin-top: 28px;
+  font-size: 25px;
+  color: #000000;
+}
+
+.quoteAccent {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+@media (max-width: 980px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .cardTall {
+    flex-direction: column;
+  }
+  .cardImage {
+    width: 100%;
+    flex: 0 0 auto;
+    height: 260px;
+  }
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+/* medium screens: let the image reduce proportionally */
+@media (max-width: 1200px) and (min-width: 981px) {
+  .cardImage {
+    flex: 0 1 280px;
+    width: 280px;
+    height: 300px;
+  }
+}
