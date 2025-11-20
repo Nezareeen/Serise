@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import styles from './navBar.module.css'
 
 const NavBar = () => {
@@ -41,19 +42,32 @@ const NavBar = () => {
 
 
 	const toggle = () => setOpen((s) => !s)
+	const navigate = useNavigate()
+	const [authed, setAuthed] = useState(() => !!localStorage.getItem('serise_token'))
 
-	const menuItems = [
-		{ label: 'Take Persona survey', href: '/survey' },
-		{ label: 'Login', href: '/auth/login' },
-		{ label: 'Sign up', href: '/auth/signup' },
-	]
+	useEffect(()=>{
+		const onStorage = (e) => {
+			if (e.key === 'serise_token') setAuthed(!!e.newValue)
+		}
+		window.addEventListener('storage', onStorage)
+		return () => window.removeEventListener('storage', onStorage)
+	}, [])
+
+	const logout = () => {
+		localStorage.removeItem('serise_token')
+		setOpen(false)
+		setAuthed(false)
+		navigate('/')
+	}
 
 	return (
-		<header className={styles.header}>
+		<header className={`${styles.header} ${open ? styles.menuActive : ''}`}>
 			<div className={styles.container}>
 				<div className={styles.brandWrap}>
 					<div className={`${styles.logo} fleur-de-leah-regular`}>Serise</div>
 				</div>
+
+				{/* Desktop inline menu removed — hamburger dropdown is primary navigation on all screen sizes */}
 
 				<button
 					className={`${styles.hamburger} ${open ? styles.open : ''}`}
@@ -71,15 +85,61 @@ const NavBar = () => {
 				className={`${styles.mobileMenu} ${open ? styles.open : ''}`}
 				aria-hidden={!open}
 				role="menu"
+				style={{
+					maxHeight: open ? '420px' : '0',
+					opacity: open ? 1 : 0,
+					transform: open ? 'translateY(0)' : 'translateY(-6px)',
+					pointerEvents: open ? 'auto' : 'none',
+				}}
 			>
 				<ul className={styles.menuList}>
-					{menuItems.map((m) => (
-						<li key={m.href} className={styles.menuItem} role="none">
-							<a role="menuitem" href={m.href} onClick={() => setOpen(false)}>
-								{m.label}
-							</a>
-						</li>
-					))}
+					<li className={styles.menuItem} role="none">
+						<Link role="menuitem" to="/" onClick={() => setOpen(false)}>Home</Link>
+					</li>
+					<li className={styles.menuItem} role="none">
+						<Link role="menuitem" to="/vault" onClick={() => setOpen(false)}>Memory Vault</Link>
+					</li>
+					<li className={styles.menuItem} role="none">
+						<Link role="menuitem" to="/energy" onClick={() => setOpen(false)}>Energy Tracker</Link>
+					</li>
+					<li className={styles.menuItem} role="none">
+						<Link role="menuitem" to="/overthinking" onClick={() => setOpen(false)}>Anti‑Overthinking</Link>
+					</li>
+					<li className={styles.menuItem} role="none">
+						<Link role="menuitem" to="/simulate" onClick={() => setOpen(false)}>Simulator</Link>
+					</li>
+					<li className={styles.menuItem} role="none">
+						<Link role="menuitem" to="/scripts" onClick={() => setOpen(false)}>Scripts</Link>
+					</li>
+					<li className={styles.menuItem} role="none">
+						<Link role="menuitem" to="/goals" onClick={() => setOpen(false)}>Goals</Link>
+					</li>
+
+					{authed ? (
+						<>
+							<li className={styles.menuItem} role="none">
+								<Link role="menuitem" to="/dashboard" onClick={() => setOpen(false)}>Dashboard</Link>
+							</li>
+							<li className={styles.menuItem} role="none">
+								<Link role="menuitem" to="/profile" onClick={() => setOpen(false)}>Profile</Link>
+							</li>
+							<li className={styles.menuItem} role="none">
+								<Link role="menuitem" to="/settings" onClick={() => setOpen(false)}>Settings</Link>
+							</li>
+							<li className={styles.menuItem} role="none">
+								<button className={styles.logoutBtn} onClick={logout}>Logout</button>
+							</li>
+						</>
+					) : (
+						<>
+							<li className={styles.menuItem} role="none">
+								<Link role="menuitem" to="/auth/login" onClick={() => setOpen(false)}>Login</Link>
+							</li>
+							<li className={styles.menuItem} role="none">
+								<Link role="menuitem" to="/auth/signup" onClick={() => setOpen(false)}>Sign up</Link>
+							</li>
+						</>
+					)}
 				</ul>
 			</nav>
 		</header>
