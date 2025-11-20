@@ -1,10 +1,20 @@
-import React from 'react';
+import React from 'react'
+import NavBar from '../../components/layout/Navbar'
+import Hero from '../../components/UI/Hero'
+import Introducing from '../../components/Sections/Introducing'
+import Features from '../../components/Sections/Features'
+import Footer from '../../components/layout/Footer'
 
-export default function Home(){
-  return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold">Serise — Introvert social toolkit</h1>
-      <p className="mt-2 text-gray-600">Welcome. This is the Home placeholder.</p>
-    </div>
-  );
+const Home = () => {
+	return (
+		<>
+            <NavBar/>
+			<Hero />
+			<Introducing />
+			<Features />
+            <Footer />
+		</>
+	)
 }
+
+export default Home
