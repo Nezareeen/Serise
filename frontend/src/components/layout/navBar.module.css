@@ -130,6 +130,21 @@
 	color: var(--accent);
 }
 
+.menuItem button {
+	display: block;
+	padding: 12px 14px;
+	color: #111;
+	background: transparent;
+	border: none;
+	text-align: left;
+	width: 100%;
+	font-weight: 600;
+	cursor: pointer;
+}
+.menuItem button:hover{ background: rgba(75,0,130,0.04); color: var(--accent) }
+
+.logoutBtn{ color:#b60f0f }
+
 /* Keep the hamburger evenly spaced on large screens too */
 @media (min-width: 900px) {
 	.container {
@@ -143,10 +158,23 @@
 	}
 }
 
-/* On wide screens we hide the mobile menu and keep hamburger optionally hidden */
+/* On wide screens show the dropdown as a compact right-aligned menu */
 @media (min-width: 900px) {
-	.mobileMenu { display: none; }
+	.mobileMenu {
+		/* don't span full width on desktop, align to right near the hamburger */
+		left: auto;
+		right: var(--nav-padding);
+		width: 320px;
+		max-width: 40%;
+		border-radius: 10px;
+	}
+
+	.menuList {
+		padding: 12px 14px;
+	}
 }
+
+/* Desktop inline menu removed — hamburger dropdown is primary navigation on all screen sizes */
 
 @media (max-width: 480px) {
 	.logo {

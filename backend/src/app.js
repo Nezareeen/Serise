@@ -7,6 +7,8 @@ const energyRoutes = require('./routes/energyRoutes');
 const overthinkingRoutes = require('./routes/overthinkingRoutes');
 const simulationRoutes = require('./routes/simulationRoutes');
 const profileRoutes = require('./routes/profileRoutes');
+const scriptRoutes = require('./routes/scriptRoutes');
+const goalRoutes = require('./routes/goalRoutes');
 
 app.use(cors());
 app.use(express.json());
@@ -17,6 +19,8 @@ app.use('/api/energy', energyRoutes);
 app.use('/api/overthinking', overthinkingRoutes);
 app.use('/api/simulate', simulationRoutes);
 app.use('/api/profile', profileRoutes);
+app.use('/api/scripts', scriptRoutes);
+app.use('/api/goals', goalRoutes);
 
 app.get('/health', (req,res) => res.json({ok:true}));
 

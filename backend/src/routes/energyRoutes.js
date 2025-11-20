@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/energyController');
+const auth = require('../middleware/authMiddleware');
 
-router.post('/', controller.log);
+router.post('/', auth, controller.log);
+router.get('/', auth, controller.list);
 
 module.exports = router;

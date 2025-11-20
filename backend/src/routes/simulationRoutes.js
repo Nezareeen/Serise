@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/simulationController');
+const auth = require('../middleware/authMiddleware');
 
-router.post('/', controller.run);
+router.post('/', auth, controller.run);
 
 module.exports = router;
