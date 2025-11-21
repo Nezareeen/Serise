@@ -51,46 +51,43 @@ export default function Dashboard(){
             </StatCard>
           </div>
 
-          <div className={styles.rightTop}>
-            <div className={styles.tilesGrid}>
-              {[
-                {label: 'Memory Vault', to: '/vault', icon: '💾'},
-                {label: 'Energy Tracker', to: '/energy', icon: '⚡'},
-                {label: 'Anti‑Overthinking', to: '/overthinking', icon: '🧠'},
-                {label: 'Simulator', to: '/simulate', icon: '🎭'},
-                {label: 'Scripts', to: '/scripts', icon: '✍️'},
-                {label: 'Goals', to: '/goals', icon: '★'},
-                {label: 'Profile', to: '/profile', icon: '👤'},
-              ].map(t => (
-                <Link key={t.to} to={t.to} className={styles.tileLink}>
-                  <StatCard>
-                    <div className={styles.iconBox} aria-hidden>{t.icon}</div>
-                    <div className={styles.cardLabel}>{t.label}</div>
-                  </StatCard>
-                </Link>
-              ))}
-            </div>
-          </div>
+          <div className={styles.rightGrid}>
+            {/* Primary tiles (2 columns x 4 rows) */}
+            {[
+              {label: 'Memory Vault', to: '/vault', icon: '💾'},
+              {label: 'Energy Tracker', to: '/energy', icon: '⚡'},
+              {label: 'Anti‑Overthinking', to: '/overthinking', icon: '🧠'},
+              {label: 'Simulator', to: '/simulate', icon: '🎭'},
+              {label: 'Scripts', to: '/scripts', icon: '✍️'},
+              {label: 'Goals', to: '/goals', icon: '★'},
+              {label: 'Profile', to: '/profile', icon: '👤'},
+            ].map(t => (
+              <Link key={t.to} to={t.to} className={styles.tileLink}>
+                <StatCard>
+                  <div className={styles.iconBox} aria-hidden>{t.icon}</div>
+                  <div className={styles.cardLabel}>{t.label}</div>
+                </StatCard>
+              </Link>
+            ))}
 
-          <div className={styles.rightBottom}>
-            <StatCard className={styles.noteCard}>
+            {/* Conversations card becomes the 8th tile to create a perfect 4x2 grid */}
+            <div className={styles.tileLink}>
+              <StatCard className={styles.noteCard}>
                 {loading ? <div>Loading…</div> : (
-                  <ul>
-                    {conversations.length === 0 && <li>No conversations yet</li>}
-                    {conversations.slice(0,5).map(c => (
-                      <li key={c._id || c.id}>{c.summary || c}</li>
-                    ))}
-                  </ul>
+                  <div>
+                    <div className={styles.cardLabel}>Conversations</div>
+                    <ul>
+                      {conversations.length === 0 && <li>No conversations yet</li>}
+                      {conversations.slice(0,3).map(c => (
+                        <li key={c._id || c.id}>{c.summary || c}</li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
-            </StatCard>
+              </StatCard>
+            </div>
 
-            <StatCard className={styles.heatmap}>
-              <div className={styles.heatGrid} aria-hidden>
-                {Array.from({length: 9*20}).map((_,i)=> (
-                  <span key={i} className={styles.heatCell} />
-                ))}
-              </div>
-            </StatCard>
+            {/* removed empty placeholder to keep exactly 8 tiles (2 cols x 4 rows) */}
           </div>
         </section>
       </main>
