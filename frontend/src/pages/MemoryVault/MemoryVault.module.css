@@ -1,5 +1,75 @@
- .page { max-width: 1100px; margin: 32px auto; padding: 0 24px; color: #000 }
- .list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px }
- .item { background: #fff; padding: 16px; border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,0.04) }
- .summary { font-size: 16px; color: #111 }
- .meta { font-size: 12px; color: #777; margin-top: 8px }
+:root{
+	--accent: #6a29ff;
+	--muted: #eef0f6;
+	--card-bg: #fff;
+}
+
+.page{ max-width:1200px; margin:28px auto; padding:24px; background: linear-gradient(180deg, rgba(106,41,255,0.04), rgba(236,234,250,0.02)); border-radius:8px }
+.header{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:12px }
+.header h1{ margin:0; font-size:24px }
+.stats{ display:flex; gap:16px; color:#444; font-size:14px }
+.headerActions .btn{ padding:8px 14px }
+
+.topStrip{ display:flex; gap:12px; align-items:center; background: rgba(255,255,255,0.6); padding:10px 12px; border-radius:10px; margin-bottom:18px }
+.energyMeter{ position:relative; width:120px; height:10px; background:var(--muted); border-radius:999px; overflow:hidden }
+.energyFill{ position:absolute; left:0; top:0; bottom:0; background:linear-gradient(90deg,var(--accent),#ff7ab6) }
+.energyLabel{ position:absolute; right:8px; top:-20px; font-size:12px; color:#333 }
+.suggested{ color:#333; font-size:14px }
+.search{ margin-left:auto; display:flex; align-items:center; gap:8px }
+.search input{ padding:8px 10px; border-radius:8px; border:1px solid #e6e6e6 }
+
+.main{ display:grid; grid-template-columns: 1fr 420px; gap:20px }
+.listCol{ background:transparent }
+.toolbar{ display:flex; justify-content:space-between; margin-bottom:10px }
+.loading{ padding:20px }
+
+.list{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px; max-height:65vh; overflow:auto }
+.card{ background:var(--card-bg); border-radius:12px; padding:12px; box-shadow:0 8px 22px rgba(16,24,40,0.06); cursor:pointer; display:flex; flex-direction:column }
+.card:focus{ outline:3px solid rgba(106,41,255,0.12) }
+.cardHead{ display:flex; justify-content:space-between; align-items:center }
+.title{ font-weight:600 }
+.when{ font-size:12px; color:#777 }
+.excerpt{ color:#444; margin-top:8px }
+.cardFoot{ display:flex; justify-content:space-between; align-items:center; margin-top:12px }
+.mood{ padding:4px 8px; border-radius:999px; font-size:12px }
+.calm{ background:#e6ffef; color:#1f7a3a }
+.nervous{ background:#fff4e6; color:#a96a00 }
+.anxious{ background:#ffecec; color:#9a2b2b }
+.confident{ background:#e8f0ff; color:#243b7a }
+.actions{ color:#999 }
+
+.detailCol{ background:transparent }
+.detailInner{ background:var(--card-bg); border-radius:12px; padding:16px; box-shadow:0 10px 30px rgba(16,24,40,0.06); min-height:60vh }
+.detailHeader{ display:flex; justify-content:space-between; align-items:center }
+.metaSmall{ color:#666 }
+.detailBody{ display:flex; gap:16px; margin-top:12px }
+.summaryArea{ flex:1 }
+.aiPanel{ width:260px; background:#fafafa; border-radius:8px; padding:12px }
+.insight{ margin-bottom:10px }
+.suggestedReplies button{ margin-right:6px }
+
+.emptyDetail{ padding:28px; color:#666 }
+
+/* mobile behavior */
+@media (max-width: 920px){
+	.main{ grid-template-columns: 1fr }
+	.detailCol{ position:fixed; left:0; right:0; bottom:0; top:0; background:rgba(255,255,255,0.98); transform:translateY(100%); transition:transform .28s ease; z-index:60 }
+	.detailCol.openMobile{ transform:translateY(0) }
+	.detailInner{ min-height:100%; box-shadow:none }
+}
+
+/* modal */
+.modalBackdrop{ position:fixed; inset:0; background:rgba(10,12,20,0.45); display:flex; align-items:center; justify-content:center; z-index:80 }
+.modal{ width:520px; background:#fff; border-radius:10px; box-shadow:0 20px 60px rgba(10,12,20,0.2); }
+.modalHeader{ display:flex; justify-content:space-between; align-items:center; padding:12px 16px; border-bottom:1px solid #eee }
+.modalBody{ padding:12px 16px; display:flex; flex-direction:column; gap:8px }
+.modalBody input, .modalBody select{ padding:8px; border-radius:6px; border:1px solid #e6e6e6 }
+.modalFooter{ display:flex; justify-content:flex-end; gap:8px; padding:12px 16px; border-top:1px solid #eee }
+
+.btn{ background:#fff; border:1px solid #ddd; padding:8px 10px; border-radius:8px }
+.btn.primary{ background:var(--accent); color:#fff; border:0 }
+
+/* small helpers */
+.cardHead .title{ max-width:68% }
+.aiPanel ul{ margin:6px 0 0 16px }
+
